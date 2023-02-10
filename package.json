@@ -6,9 +6,9 @@
   "scripts": {
     "build": "tsc -w",
     "prod": "tsc",
-    "start": "npm install && npm run prod && node build/index.js",
+    "start": "node build/index.js",
     "dev": "nodemon build/index.js",
-    "deploy": "yarn install && yarn prod && node build/index.js"
+    "deploy": "yarn install && yarn prod"
   },
   "dependencies": {
     "@fastify/cors": "^8.2.0",
