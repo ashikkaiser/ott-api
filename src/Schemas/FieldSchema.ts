@@ -124,7 +124,7 @@ export const adminUpdateFieldSchema = {
 
 export const adminDeleteFieldSchema = {
 	schema: {
-		tags: ["Admin Fields"],
+		tags: ["Admin Fieldssss"],
 		summary: "Delete field",
 		description: "Delete field",
 		body: {
