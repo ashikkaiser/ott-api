@@ -41,10 +41,9 @@ export async function SuperAdminRoutes(
 		handler: field,
 	});
 
-	app.delete("fields", {
+	app.delete("fields/:id", {
 		...adminDeleteFieldSchema,
 		handler: field,
 	});
-
 	done();
 }

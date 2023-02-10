@@ -83,8 +83,7 @@ export async function field(req: any, reply: FastifyReply) {
 	if (req.method === "DELETE") {
 		try {
 			await Field.deleteOne({
-				_id: req.body.id,
-				uuid: user.id,
+				_id: req.params.id,
 			});
 			return reply.code(200).send({
 				success: true,

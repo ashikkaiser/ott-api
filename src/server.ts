@@ -24,7 +24,7 @@ export const server = async () => {
 	try {
 		if (config.SERVER === "dev") {
 			await server.listen({
-				port: config.PORT,
+				port: 3001,
 				host: config.HOST,
 			});
 		} else {

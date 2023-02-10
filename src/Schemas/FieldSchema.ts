@@ -127,11 +127,5 @@ export const adminDeleteFieldSchema = {
 		tags: ["Admin Fields"],
 		summary: "Delete field",
 		description: "Delete field",
-		body: {
-			type: "object",
-			properties: {
-				id: { type: "string" },
-			},
-		},
 	},
 };
