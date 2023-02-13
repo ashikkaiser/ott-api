@@ -2,8 +2,12 @@ import { getModelForClass, prop } from "@typegoose/typegoose";
 import { CONTENT_TYPE } from "../utils/GlobalType";
 import { UserModel } from "./User";
 enum IMAGE_TYPE {
-	POSTER = "Poster",
-	BANNER = "Banner",
+	WEB_POSTER = "WEB_POSTER",
+	WEB_BANNER = "WEB_BANNER",
+	APP_POSTER = "APP_POSTER",
+	APP_BANNER = "APP_BANNER",
+	TV_POSTER = "TV_POSTER",
+	TV_BANNER = "TV_BANNER",
 }
 export class TemplateModel {
 	@prop({ required: true, type: String })

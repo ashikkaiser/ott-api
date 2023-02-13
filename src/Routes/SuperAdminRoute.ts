@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyPluginOptions } from "fastify";
 import { SuperAdminAuthMiddleware } from "../Middlewares/AuthMiddleware";
-import { field } from "../Controllers/Admin/FieldController";
+import { field, systemFields } from "../Controllers/Admin/FieldController";
 import {
 	adminCreateFieldSchema,
 	adminDeleteFieldSchema,
@@ -44,6 +44,14 @@ export async function SuperAdminRoutes(
 	app.delete("fields/:id", {
 		...adminDeleteFieldSchema,
 		handler: field,
+	});
+	app.get("system_fields", {
+		schema: {
+			tags: ["Admin Fields"],
+			summary: "Get system fields",
+			description: "Get system fields",
+		},
+		handler: systemFields,
 	});
 	done();
 }

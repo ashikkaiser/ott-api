@@ -4,6 +4,7 @@ enum FieldType {
 	TEXT = "text",
 	SELECT = "select",
 	TEXT_AREA = "textarea",
+	TAG = "tag",
 }
 
 enum AccessType {
@@ -29,6 +30,11 @@ export class FieldModel {
 	public field_type!: FieldType;
 	@prop({ required: false, type: Array })
 	public option_list!: string[];
+	@prop({ required: false, type: String, nullable: true })
+	public relation_table!: string;
+	// isSystem;
+	@prop({ required: false, type: Boolean, default: false })
+	public is_system!: boolean;
 }
 
 export const Field = getModelForClass(FieldModel, {

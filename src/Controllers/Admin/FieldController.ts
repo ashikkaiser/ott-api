@@ -26,6 +26,7 @@ export async function field(req: any, reply: FastifyReply) {
 				field_type,
 				option_list,
 				access_type,
+				relation_table,
 			} = req.body;
 			await Field.create({
 				access_type,
@@ -33,6 +34,7 @@ export async function field(req: any, reply: FastifyReply) {
 				unique_key,
 				field_type,
 				option_list,
+				relation_table,
 			});
 			return reply.code(200).send({
 				success: true,
@@ -55,6 +57,7 @@ export async function field(req: any, reply: FastifyReply) {
 				field_type,
 				option_list,
 				access_type,
+				relation_table,
 			} = req.body;
 			await Field.updateOne(
 				{
@@ -66,6 +69,7 @@ export async function field(req: any, reply: FastifyReply) {
 					unique_key,
 					field_type,
 					option_list,
+					relation_table,
 				}
 			);
 
@@ -88,6 +92,26 @@ export async function field(req: any, reply: FastifyReply) {
 			return reply.code(200).send({
 				success: true,
 				message: "Field deleted successfully",
+			});
+		} catch (err) {
+			return reply.code(500).send({
+				success: false,
+				message: "Something went wrong",
+			});
+		}
+	}
+}
+
+export async function systemFields(req: any, reply: FastifyReply) {
+	if (req.method === "GET") {
+		try {
+			const fields = await Field.find({
+				is_system: true,
+			});
+
+			return reply.code(200).send({
+				success: true,
+				data: fields,
 			});
 		} catch (err) {
 			return reply.code(500).send({

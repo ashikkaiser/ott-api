@@ -83,13 +83,14 @@ export const adminCreateFieldSchema = {
 				unique_key: { type: "string" },
 				field_type: {
 					type: "string",
-					enum: ["text", "select", "textarea"],
+					enum: ["text", "select", "textarea", "tag"],
 				},
 				option_list: { type: "array" },
 				access_type: {
 					type: "string",
 					enum: ["SYSTEM_DEFINED", "SYSTEM_DEFINED_REMOVABLE"],
 				},
+				relation_table: { type: "string" },
 			},
 			required: ["field_name", "unique_key", "field_type"],
 		},
@@ -109,13 +110,14 @@ export const adminUpdateFieldSchema = {
 				unique_key: { type: "string" },
 				field_type: {
 					type: "string",
-					enum: ["text", "select", "textarea"],
+					enum: ["text", "select", "textarea", "tag"],
 				},
 				option_list: { type: "array" },
 				access_type: {
 					type: "string",
 					enum: ["SYSTEM_DEFINED", "SYSTEM_DEFINED_REMOVABLE"],
 				},
+				relation_table: { type: "string" },
 			},
 			required: ["id", "field_name", "unique_key", "field_type"],
 		},
