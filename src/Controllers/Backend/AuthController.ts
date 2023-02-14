@@ -51,7 +51,7 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 		password: bcrypt.hashSync(body.password, 10),
 	});
 	if (user) {
-		const getDefaultTemplates = await Template.findOne({
+		const getDefaultTemplates = await Template.find({
 			system: true,
 		});
 		if (getDefaultTemplates) {
