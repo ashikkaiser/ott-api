@@ -63,16 +63,20 @@ export class UserModel {
 	public comparePassword(password: string) {
 		return bcrypt.compare(password, this.password);
 	}
-	public createTemplates(templates: Array<any>) {
+	public async createTemplates(templates: Array<any>) {
 		// Create default templates to Template collection
 		const newTemplates: any = templates.map((template) => {
-			return new Template({
+			new Template({
 				...template,
 				system: false,
 				uuid: this._id,
 			});
 		});
-		Template.create(newTemplates);
+		await Promise.all(
+			newTemplates.forEach(async (template: any) =>
+				Template.create(template)
+			)
+		);
 	}
 }
 
