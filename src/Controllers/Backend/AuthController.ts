@@ -55,7 +55,14 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 			system: true,
 		});
 		if (getDefaultTemplates) {
-			user.createTemplates(getDefaultTemplates);
+			getDefaultTemplates.forEach(async (template) => {
+				delete template._id;
+				await Template.create({
+					...template,
+					system: false,
+					created_by: user._id,
+				});
+			});
 		}
 	}
 
