@@ -6,7 +6,7 @@ export class UserModel {
 	@prop({ required: true, type: String })
 	public name!: string;
 
-	@prop({ required: true, type: String })
+	@prop({ required: true, type: String, unique: true })
 	public email!: string;
 
 	@prop({ required: true, type: String })
@@ -62,6 +62,36 @@ export class UserModel {
 
 	public comparePassword(password: string) {
 		return bcrypt.compare(password, this.password);
+	}
+
+	public async createDefaultTemplate() {
+		const getDefaultTemplates = await Template.find({
+			system: true,
+		});
+		if (getDefaultTemplates) {
+			getDefaultTemplates.forEach(async (template) => {
+				delete template._id;
+				try {
+					await Template.create({
+						name: template.name,
+						image_setting: template.image_setting,
+						content_type: template.content_type,
+						is_default: true,
+						uuid: this._id,
+						system: false,
+					});
+				} catch (error) {
+					console.log(error);
+				}
+			});
+		}
+	}
+	public async removeTemplates() {
+		try {
+			await Template.deleteMany({ uuid: this._id });
+		} catch (error) {
+			console.log(error);
+		}
 	}
 }
 

@@ -51,19 +51,30 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 		password: bcrypt.hashSync(body.password, 10),
 	});
 	if (user) {
-		const getDefaultTemplates = await Template.find({
-			system: true,
-		});
-		if (getDefaultTemplates) {
-			getDefaultTemplates.forEach(async (template) => {
-				delete template._id;
-				await Template.create({
-					...template,
-					system: false,
-					created_by: user._id,
-				});
-			});
-		}
+		await user.createDefaultTemplate();
+		// const getDefaultTemplates = await Template.find({
+		// 	system: true,
+		// });
+		// if (getDefaultTemplates) {
+		// 	getDefaultTemplates.forEach(async (template) => {
+		// 		delete template._id;
+		// 		console.log(template);
+
+		// 		try {
+		// 			await Template.create({
+		// 				name: template.name,
+		// 				image_setting: template.image_setting,
+		// 				content_type: template.content_type,
+		// 				is_default: true,
+		// 				trans: template.trans,
+		// 				system: false,
+		// 				uuid: user._id,
+		// 			});
+		// 		} catch (error) {
+		// 			console.log(error);
+		// 		}
+		// 	});
+		// }
 	}
 
 	return reply.code(201).send(user);
