@@ -1,6 +1,7 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
 import * as bcrypt from "bcryptjs";
 import { USER_TYPE } from "../utils/GlobalType";
+import { Template } from "./Template";
 export class UserModel {
 	@prop({ required: true, type: String })
 	public name!: string;
@@ -57,9 +58,21 @@ export class UserModel {
 		default: USER_TYPE.ADMIN,
 	})
 	public user_type!: USER_TYPE;
+	private _id: any;
 
 	public comparePassword(password: string) {
 		return bcrypt.compare(password, this.password);
+	}
+	public createTemplates(templates: Array<any>) {
+		// Create default templates to Template collection
+		const newTemplates: any = templates.map((template) => {
+			return new Template({
+				...template,
+				system: false,
+				uuid: this._id,
+			});
+		});
+		Template.create(newTemplates);
 	}
 }
 

@@ -16,16 +16,14 @@ export class TemplateModel {
 	public name!: string;
 	@prop({ required: true, type: String })
 	public content_type!: CONTENT_TYPE;
-	@prop({ required: false, type: Boolean, default: true })
+	@prop({ required: false, type: Boolean, default: false })
 	public is_default!: boolean;
+	@prop({ required: false, type: Boolean, default: false })
+	public system!: boolean;
+	@prop({ required: true, type: Object })
+	public image_setting!: object;
 	@prop({ required: true, type: Array })
-	public image_setting!: Array<{
-		image_type: IMAGE_TYPE;
-		width: number;
-		height: number;
-	}>;
-	@prop({ required: true, type: Array })
-	public trans!: Array<{
+	public trans: Array<{
 		field_uuid: string;
 		field_order: number;
 		field_name: string;

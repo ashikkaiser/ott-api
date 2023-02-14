@@ -3,6 +3,7 @@ import { User } from "../../Models/User";
 import * as bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import { config } from "../../utils";
+import { Template } from "../../Models/Template";
 
 interface IRegisterBody {
 	name: string;
@@ -45,10 +46,18 @@ export async function emailVerify(req: FastifyRequest, reply: FastifyReply) {
 export async function register(req: FastifyRequest, reply: FastifyReply) {
 	const body = req.body as IRegisterBody;
 
-	const user = await User.create({
+	const user: any = await User.create({
 		...body,
 		password: bcrypt.hashSync(body.password, 10),
 	});
+	if (user) {
+		const getDefaultTemplates = await Template.findOne({
+			system: true,
+		});
+		if (getDefaultTemplates) {
+			user.createTemplates(getDefaultTemplates);
+		}
+	}
 
 	return reply.code(201).send(user);
 }

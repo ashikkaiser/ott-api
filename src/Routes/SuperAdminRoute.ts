@@ -8,6 +8,13 @@ import {
 	adminUpdateFieldSchema,
 } from "../Schemas/FieldSchema";
 import { me } from "../Controllers/Backend/AuthController";
+import {
+	adminCreateTemplateSchema,
+	adminDeleteTemplateSchema,
+	adminGetTemplateSchema,
+	adminUpdateTemplateSchema,
+} from "../Schemas/TemplateSchema";
+import { template } from "../Controllers/Admin/TemplateController";
 
 export async function SuperAdminRoutes(
 	app: FastifyInstance,
@@ -53,5 +60,22 @@ export async function SuperAdminRoutes(
 		},
 		handler: systemFields,
 	});
+	app.get("template", {
+		...adminGetTemplateSchema,
+		handler: template,
+	});
+	app.post("template", {
+		...adminCreateTemplateSchema,
+		handler: template,
+	});
+	app.put("template", {
+		...adminUpdateTemplateSchema,
+		handler: template,
+	});
+	app.delete("template", {
+		...adminDeleteTemplateSchema,
+		handler: template,
+	});
+
 	done();
 }
