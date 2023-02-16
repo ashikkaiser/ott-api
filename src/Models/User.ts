@@ -76,6 +76,7 @@ export class UserModel {
 						name: template.name,
 						image_setting: template.image_setting,
 						content_type: template.content_type,
+						trans: template.trans,
 						is_default: true,
 						uuid: this._id,
 						system: false,

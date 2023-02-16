@@ -8,7 +8,10 @@ import {
 	register,
 } from "../Controllers/Backend/AuthController";
 import { category } from "../Controllers/Backend/CategoryController";
-import { contentSettings } from "../Controllers/Backend/ContectSettingsController";
+import {
+	contentSettings,
+	template,
+} from "../Controllers/Backend/ContectSettingsController";
 import { field } from "../Controllers/Backend/FieldController";
 import { AdminAuthMiddleware } from "../Middlewares/AuthMiddleware";
 
@@ -22,6 +25,7 @@ import {
 	createCategorySchema,
 	deleteCategorySchema,
 	getCategoriesSchema,
+	getTempaltebyIdSchema,
 	updateCategorySchema,
 } from "../Schemas/CategorySchema";
 import {
@@ -138,6 +142,11 @@ export async function AdminPrivateRoutes(
 	app.delete("content/category", {
 		...deleteCategorySchema,
 		handler: category,
+	});
+
+	app.get("content/template/:id", {
+		...getTempaltebyIdSchema,
+		handler: template,
 	});
 
 	done();

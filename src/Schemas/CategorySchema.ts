@@ -50,3 +50,11 @@ export const deleteCategorySchema = {
 		},
 	},
 };
+
+export const getTempaltebyIdSchema = {
+	schema: {
+		tags: ["Content Settings"],
+		summary: "Get template by id",
+		description: "Get template by id",
+	},
+};

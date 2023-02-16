@@ -1,12 +1,18 @@
 import { FastifyReply, FastifyRequest } from "fastify";
 import { uuid } from "uuidv4";
 import { ContentSetting } from "../../Models/ContentSetting";
+import { Template } from "../../Models/Template";
 
 export async function contentSettings(req: any, reply: FastifyReply) {
 	const { user } = req;
 	const { type } = req.params;
 
 	if (req.method === "GET") {
+		if (type === "manage-metadata") {
+			console.log("meta");
+			await MetaMennagemetGet(req, reply);
+		}
+
 		try {
 			const contentSettings: any = await ContentSetting.findOne({
 				uuid: user.id,
@@ -46,6 +52,34 @@ export async function contentSettings(req: any, reply: FastifyReply) {
 		if (type === "level_structures") {
 			await LevelStructureDelete(req, reply);
 		}
+	}
+}
+
+export async function template(req: any, reply: FastifyReply) {
+	try {
+		const { user } = req;
+		const { id } = req.params;
+		const template = await Template.findOne({
+			_id: id,
+			uuid: user.id,
+		});
+		if (!template) {
+			return reply.code(200).send({
+				success: false,
+				messsage: "Template not found",
+				data: [],
+			});
+		}
+		return reply.code(200).send({
+			success: true,
+			messsage: "Template fetched successfully",
+			data: template,
+		});
+	} catch (error) {
+		return reply.code(500).send({
+			success: false,
+			message: "Something went wrong",
+		});
 	}
 }
 // Level Structure Section
@@ -203,4 +237,22 @@ async function LevelStructureDelete(req: any, reply: FastifyReply) {
 	}
 }
 
+async function MetaMennagemetGet(req: any, reply: FastifyReply) {
+	try {
+		const template = await Template.find({
+			uuid: req.user.id,
+		});
+		console.log(template);
+		return reply.code(200).send({
+			success: true,
+			message: "Content settings fetched successfully",
+			data: template,
+		});
+	} catch (err) {
+		return reply.code(500).send({
+			success: false,
+			message: "Something went wrong",
+		});
+	}
+}
 // Content Settings Section
