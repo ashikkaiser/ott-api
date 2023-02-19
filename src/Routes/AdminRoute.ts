@@ -13,6 +13,7 @@ import {
 	template,
 } from "../Controllers/Backend/ContectSettingsController";
 import { field } from "../Controllers/Backend/FieldController";
+import { library, saveAsset } from "../Controllers/Backend/LibraryController";
 import { AdminAuthMiddleware } from "../Middlewares/AuthMiddleware";
 
 //schemas
@@ -139,7 +140,7 @@ export async function AdminPrivateRoutes(
 		...updateCategorySchema,
 		handler: category,
 	});
-	app.delete("content/category", {
+	app.delete("content/category/:id", {
 		...deleteCategorySchema,
 		handler: category,
 	});
@@ -147,6 +148,19 @@ export async function AdminPrivateRoutes(
 	app.get("content/template/:id", {
 		...getTempaltebyIdSchema,
 		handler: template,
+	});
+
+	app.post("library/save-asset", {
+		schema: {
+			tags: ["Content Settings"],
+			summary: "Create template",
+			description: "Create template",
+		},
+		handler: saveAsset,
+	});
+
+	app.get("library", {
+		handler: library,
 	});
 
 	done();

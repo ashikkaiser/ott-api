@@ -42,12 +42,6 @@ export const deleteCategorySchema = {
 		tags: ["Category"],
 		summary: "Delete category",
 		description: "Delete category",
-		body: {
-			type: "object",
-			properties: {
-				id: { type: "string" },
-			},
-		},
 	},
 };
 

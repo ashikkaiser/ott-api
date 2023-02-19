@@ -9,19 +9,19 @@ export class LibraryModel {
 	public file_url!: string;
 	@prop({ required: true, type: String })
 	public file_type!: string;
-	@prop({ required: true, type: String })
+	@prop({ required: true, type: Number })
 	public file_size!: number;
 	@prop({ required: false, type: String, nullable: true })
 	public duration!: string;
 	@prop({ required: false, type: String, nullable: true })
 	public resolution!: string;
-	@prop({ required: false, type: String, nullable: true })
+	@prop({ required: false, type: Number, nullable: true })
 	public video_bitrate!: number;
-	@prop({ required: false, type: String, nullable: true })
+	@prop({ required: false, type: Number, nullable: true })
 	public audio_bitrate!: number;
-	@prop({ required: false, type: String, nullable: true })
+	@prop({ required: false, type: Number, nullable: true })
 	public frame_rate!: number;
-	@prop({ required: false, type: String, nullable: true })
+	@prop({ required: false, type: Number, nullable: true })
 	public bit_rate!: number;
 	@prop({ required: false, type: String, nullable: true })
 	public encoding_status!: string;

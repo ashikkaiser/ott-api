@@ -30,7 +30,7 @@ export async function category(req: any, reply: FastifyReply) {
 			});
 			return reply.code(200).send({
 				success: true,
-				message: "Content settings created successfully",
+				message: "Category created successfully",
 			});
 		} catch (err) {
 			return reply.code(500).send({
@@ -50,7 +50,7 @@ export async function category(req: any, reply: FastifyReply) {
 			});
 			return reply.code(200).send({
 				success: true,
-				message: "Content settings created successfully",
+				message: "Category updated successfully",
 			});
 		} catch (err) {
 			return reply.code(500).send({
@@ -61,14 +61,13 @@ export async function category(req: any, reply: FastifyReply) {
 	}
 	if (req.method === "DELETE") {
 		try {
-			const { id } = req.body;
 			await Category.deleteOne({
 				uuid: user.id,
-				_id: id,
+				_id: req.params.id,
 			});
 			return reply.code(200).send({
 				success: true,
-				message: "Content settings created successfully",
+				message: "Category deleted successfully",
 			});
 		} catch (err) {
 			return reply.code(500).send({

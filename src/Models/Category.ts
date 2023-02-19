@@ -6,7 +6,7 @@ export class CategoryModel {
 	public uuid!: UserModel;
 	@prop({ required: true, type: String })
 	public name!: string;
-	@prop({ required: true, type: String })
+	@prop({ required: false, type: String })
 	public parent_uuid!: string;
 }
 
