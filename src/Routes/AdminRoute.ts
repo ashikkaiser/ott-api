@@ -14,6 +14,7 @@ import {
 } from "../Controllers/Backend/ContectSettingsController";
 import { field } from "../Controllers/Backend/FieldController";
 import { library, saveAsset } from "../Controllers/Backend/LibraryController";
+import { cast } from "../Controllers/Backend/PeopleController";
 import { AdminAuthMiddleware } from "../Middlewares/AuthMiddleware";
 
 //schemas
@@ -41,6 +42,12 @@ import {
 	getFieldsSchema,
 	updateFieldSchema,
 } from "../Schemas/FieldSchema";
+import {
+	createPeopleSchema,
+	deletePeopleSchema,
+	getPepoleSchema,
+	updatePeopleSchema,
+} from "../Schemas/PeopleSchema";
 
 export async function AdminPublicRoutes(
 	app: FastifyInstance,
@@ -161,6 +168,29 @@ export async function AdminPrivateRoutes(
 
 	app.get("library", {
 		handler: library,
+		schema: {
+			tags: ["Content Settings"],
+			summary: "Get library",
+			description: "Get library",
+		},
+	});
+	//People
+
+	app.get("content/cast", {
+		...getPepoleSchema,
+		handler: cast,
+	});
+	app.post("content/cast", {
+		...createPeopleSchema,
+		handler: cast,
+	});
+	app.put("content/cast", {
+		...updatePeopleSchema,
+		handler: cast,
+	});
+	app.delete("content/cast", {
+		...deletePeopleSchema,
+		handler: cast,
 	});
 
 	done();

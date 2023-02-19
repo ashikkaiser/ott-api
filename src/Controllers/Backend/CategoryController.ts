@@ -1,3 +1,4 @@
+import { mongoose } from "@typegoose/typegoose";
 import { FastifyReply, FastifyRequest } from "fastify";
 import { Category } from "../../Models/Category";
 
@@ -5,13 +6,26 @@ export async function category(req: any, reply: FastifyReply) {
 	const { user } = req;
 	if (req.method === "GET") {
 		try {
-			const categories = await Category.find({
+			const categories: any = await Category.find({
 				uuid: user.id,
+				parent_uuid: null,
 			});
+			const categoryWithSubcategory = await Promise.all(
+				categories.map(async (category: any) => {
+					const children: any = await Category.find({
+						uuid: user.id,
+						parent_uuid: category._id,
+					});
+					return {
+						...category._doc,
+						children,
+					};
+				})
+			);
 
 			return reply.code(200).send({
 				success: true,
-				data: categories,
+				data: categoryWithSubcategory,
 			});
 		} catch (err) {
 			return reply.code(500).send({
@@ -44,7 +58,7 @@ export async function category(req: any, reply: FastifyReply) {
 			const { name, parent_uuid, id } = req.body;
 			await Category.updateOne({
 				uuid: user.id,
-				_id: id,
+				_id: new mongoose.Types.ObjectId(id),
 				name,
 				parent_uuid,
 			});
@@ -53,6 +67,7 @@ export async function category(req: any, reply: FastifyReply) {
 				message: "Category updated successfully",
 			});
 		} catch (err) {
+			console.log(err);
 			return reply.code(500).send({
 				success: false,
 				message: "Something went wrong",
