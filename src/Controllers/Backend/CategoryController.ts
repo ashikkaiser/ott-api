@@ -56,12 +56,17 @@ export async function category(req: any, reply: FastifyReply) {
 	if (req.method === "PUT") {
 		try {
 			const { name, parent_uuid, id } = req.body;
-			await Category.updateOne({
-				uuid: user.id,
-				_id: new mongoose.Types.ObjectId(id),
-				name,
-				parent_uuid,
-			});
+			await Category.updateOne(
+				{
+					uuid: user.id,
+					_id: id,
+				},
+				{
+					name,
+					parent_uuid,
+				}
+			);
+
 			return reply.code(200).send({
 				success: true,
 				message: "Category updated successfully",
