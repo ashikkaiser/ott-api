@@ -3,7 +3,7 @@ import { People } from "../../Models/People";
 
 export async function cast(req: any, reply: FastifyReply) {
 	if (req.method === "GET") {
-		const peoples = People.find({
+		const peoples = await People.find({
 			uuid: req.user.id,
 		});
 		return reply.code(200).send({
@@ -12,12 +12,14 @@ export async function cast(req: any, reply: FastifyReply) {
 		});
 	}
 	if (req.method === "POST") {
-		const { cast_name, cast_bio, cast_image_uuid } = req.body;
+		const { cast_name, cast_bio, cast_image_uuid, cast_image_url } =
+			req.body;
 		await People.create({
 			uuid: req.user.id,
 			cast_name,
 			cast_bio,
 			cast_image_uuid,
+			cast_image_url,
 		});
 		return reply.code(200).send({
 			success: true,
@@ -25,7 +27,8 @@ export async function cast(req: any, reply: FastifyReply) {
 		});
 	}
 	if (req.method === "PUT") {
-		const { cast_name, cast_bio, cast_image_uuid, id } = req.body;
+		const { cast_name, cast_bio, cast_image_uuid, cast_image_url, id } =
+			req.body;
 		await People.updateOne(
 			{
 				uuid: req.user.id,
@@ -35,6 +38,7 @@ export async function cast(req: any, reply: FastifyReply) {
 				cast_name,
 				cast_bio,
 				cast_image_uuid,
+				cast_image_url,
 			}
 		);
 		return reply.code(200).send({

@@ -1,5 +1,6 @@
 import { getModelForClass, prop } from "@typegoose/typegoose";
 import { CONTENT_TYPE } from "../utils/GlobalType";
+import { Field } from "./Field";
 import { UserModel } from "./User";
 enum IMAGE_TYPE {
 	WEB_POSTER = "WEB_POSTER",

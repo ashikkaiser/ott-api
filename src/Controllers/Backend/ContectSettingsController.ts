@@ -19,7 +19,7 @@ export async function contentSettings(req: any, reply: FastifyReply) {
 			});
 			if (!contentSettings) {
 				return reply.code(200).send({
-					success: false,
+					success: true,
 					messsage: "Content settings not found",
 					data: [],
 				});
@@ -96,7 +96,6 @@ async function LevelStructureAdd(req: any, reply: FastifyReply) {
 		const checkIFExist: any = await ContentSetting.findOne({
 			uuid: req.user.id,
 		});
-		console.log(checkIFExist);
 		if (checkIFExist) {
 			await ContentSetting.updateOne(
 				{
@@ -256,3 +255,21 @@ async function MetaMennagemetGet(req: any, reply: FastifyReply) {
 	}
 }
 // Content Settings Section
+export async function getTemplateByType(req: any, reply: FastifyReply) {
+	try {
+		const template = await Template.find({
+			uuid: req.user.id,
+			type: req.params.type,
+		});
+		return reply.code(200).send({
+			success: true,
+			message: "Template fetched successfully",
+			data: template,
+		});
+	} catch (error) {
+		return reply.code(500).send({
+			success: false,
+			message: "Something went wrong",
+		});
+	}
+}

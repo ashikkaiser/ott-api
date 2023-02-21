@@ -9,6 +9,8 @@ export class PeopleModel {
 	public cast_bio!: string;
 	@prop({ required: false, type: String })
 	public cast_image_uuid!: string;
+	@prop({ required: false, type: String })
+	public cast_image_url!: string;
 }
 
 export const People = getModelForClass(PeopleModel, {
