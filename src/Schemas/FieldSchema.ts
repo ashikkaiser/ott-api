@@ -16,6 +16,7 @@ export const createFieldSchema = {
 			properties: {
 				field_name: { type: "string" },
 				unique_key: { type: "string" },
+				field_alias: { type: "string" },
 				field_type: {
 					type: "string",
 					enum: ["text", "select", "textarea"],
@@ -38,6 +39,7 @@ export const updateFieldSchema = {
 				id: { type: "string" },
 				field_name: { type: "string" },
 				unique_key: { type: "string" },
+				field_alias: { type: "string" },
 				field_type: {
 					type: "string",
 					enum: ["text", "select", "textarea"],

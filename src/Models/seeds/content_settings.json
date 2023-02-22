@@ -1,0 +1,45 @@
+{
+    "level_structures": [
+        {
+            "structure_name": "Podcast",
+            "allowed_level": 2,
+            "display_style": "DISPLAY_STYLE_HEADING",
+            "level_structure_detail": [
+                {
+                    "level_name": "Podcast",
+                    "level": 0,
+                    "uuid": "4b2845da-8be3-4de5-9f0c-17a55a671669"
+                },
+                {
+                    "level_name": "Episode",
+                    "level": 1,
+                    "uuid": "35299140-14c7-4e44-8383-0faa69c0c15e"
+                }
+            ],
+            "uuid": "833c7ca3-267d-4089-a1ce-b8020bd161a0"
+        },
+        {
+            "structure_name": "Web Series",
+            "allowed_level": 3,
+            "display_style": "DISPLAY_STYLE_HEADING",
+            "level_structure_detail": [
+                {
+                    "level_name": "Show",
+                    "level": 0,
+                    "uuid": "ba59253f-d3bb-4754-b7e2-ad477b687c4b"
+                },
+                {
+                    "level_name": "Season",
+                    "level": 1,
+                    "uuid": "820c84f8-e5fa-4ac1-91b9-2aee661c6650"
+                },
+                {
+                    "level_name": "Episode",
+                    "level": 2,
+                    "uuid": "ac35baeb-4af1-4eeb-aeb7-b0603954383c"
+                }
+            ],
+            "uuid": "f13806ad-9489-4ebb-bf98-f83983841201"
+        }
+    ]
+}

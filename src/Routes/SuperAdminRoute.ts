@@ -76,6 +76,14 @@ export async function SuperAdminRoutes(
 		...adminDeleteTemplateSchema,
 		handler: template,
 	});
+	app.get("template/:id", {
+		schema: {
+			tags: ["Admin Template"],
+			summary: "Get template",
+			description: "Get template",
+		},
+		handler: template,
+	});
 
 	done();
 }

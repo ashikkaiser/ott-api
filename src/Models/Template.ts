@@ -28,6 +28,7 @@ export class TemplateModel {
 		field_uuid: string;
 		field_order: number;
 		field_name: string;
+		field_alias: string;
 	}>;
 }
 

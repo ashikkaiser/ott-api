@@ -24,6 +24,8 @@ export class FieldModel {
 	public access_type!: AccessType;
 	@prop({ required: true, type: String })
 	public field_name!: string;
+	@prop({ required: false, type: String })
+	public field_alias!: string;
 	@prop({ required: true, type: String })
 	public unique_key!: string;
 	@prop({ required: true, type: String, enum: FieldType })

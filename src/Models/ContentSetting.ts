@@ -14,8 +14,8 @@ interface LevelStructureDetail {
 }
 
 export class ContentSettingModel {
-	@prop({ required: true, type: String, ref: UserModel })
-	public uuid!: UserModel;
+	@prop({ required: true, type: String })
+	public uuid!: string;
 
 	@prop({ required: true, type: Array })
 	public level_structures!: [

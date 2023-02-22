@@ -2,16 +2,26 @@ import { FastifyReply } from "fastify";
 import { Template } from "../../Models/Template";
 
 export async function template(req: any, reply: FastifyReply) {
+	const { id } = req.params;
 	if (req.method === "GET") {
 		try {
-			const templates = await Template.find({
-				is_default: true,
-			});
-			return reply.code(200).send({
-				success: true,
-				message: "Template GET",
-				data: templates,
-			});
+			if (id) {
+				const template = await Template.findById(id);
+				return reply.code(200).send({
+					success: true,
+					message: "Template GET",
+					data: template,
+				});
+			} else {
+				const templates = await Template.find({
+					is_default: true,
+				});
+				return reply.code(200).send({
+					success: true,
+					message: "Template GET",
+					data: templates,
+				});
+			}
 		} catch (err) {
 			return reply.code(500).send({
 				success: false,
@@ -32,6 +42,7 @@ export async function template(req: any, reply: FastifyReply) {
 					field_uuid: item.field_uuid,
 					field_order: key + 1,
 					field_name: item.field_name,
+					field_alias: item.field_alias || item.field_name,
 				})),
 				is_default: true,
 				system: true,
@@ -50,10 +61,10 @@ export async function template(req: any, reply: FastifyReply) {
 		}
 	}
 	if (req.method === "PUT") {
-		const { name, content_type, image_setting, trans } = req.body;
+		const { name, content_type, image_setting, trans, id } = req.body;
 
-		await Template.updateOne(
-			{ _id: req.params.id },
+		await Template.findByIdAndUpdate(
+			id,
 			{
 				name,
 				content_type,
@@ -62,9 +73,13 @@ export async function template(req: any, reply: FastifyReply) {
 					field_uuid: item.field_uuid,
 					field_order: key + 1,
 					field_name: item.field_name,
+					field_alias: item.field_alias || item.field_name,
 				})),
 				is_default: true,
 				system: true,
+			},
+			{
+				upsert: true,
 			}
 		);
 

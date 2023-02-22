@@ -24,10 +24,10 @@ interface ILoginBody {
 	password: string;
 }
 
-export async function emailVerify(req: FastifyRequest, reply: FastifyReply) {
+export async function emailVerify(req: any, reply: FastifyReply) {
 	const { email } = req.body as IEmailVerifyBody;
 	try {
-		const user = await User.findOne({ email });
+		const user: any = await User.findOne({ email: email });
 		if (user) {
 			return reply
 				.code(400)
@@ -51,30 +51,15 @@ export async function register(req: FastifyRequest, reply: FastifyReply) {
 		password: bcrypt.hashSync(body.password, 10),
 	});
 	if (user) {
-		await user.createDefaultTemplate();
-		// const getDefaultTemplates = await Template.find({
-		// 	system: true,
-		// });
-		// if (getDefaultTemplates) {
-		// 	getDefaultTemplates.forEach(async (template) => {
-		// 		delete template._id;
-		// 		console.log(template);
-
-		// 		try {
-		// 			await Template.create({
-		// 				name: template.name,
-		// 				image_setting: template.image_setting,
-		// 				content_type: template.content_type,
-		// 				is_default: true,
-		// 				trans: template.trans,
-		// 				system: false,
-		// 				uuid: user._id,
-		// 			});
-		// 		} catch (error) {
-		// 			console.log(error);
-		// 		}
-		// 	});
-		// }
+		const createDefaultFields = await user.createDefaultFields();
+		//delay for 2 seconds
+		await new Promise((resolve) => setTimeout(resolve, 2000));
+		if (createDefaultFields) {
+			const createDefaultSettings = await user.createDefaultSettings();
+			if (createDefaultSettings) {
+				await user.createDefaultTemplate();
+			}
+		}
 	}
 
 	return reply.code(201).send(user);
@@ -84,7 +69,7 @@ export async function login(req: FastifyRequest, reply: FastifyReply) {
 	const { email, password } = req.body as ILoginBody;
 
 	try {
-		const user = await User.findOne({ email });
+		const user: any = await User.findOne({ email });
 		if (!user) {
 			return reply
 				.code(400)

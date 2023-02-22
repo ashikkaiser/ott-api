@@ -31,14 +31,16 @@ export async function field(req: any, reply: FastifyReply) {
 			await Field.create({
 				access_type,
 				field_name,
+				field_alias: field_name,
 				unique_key,
 				field_type,
 				option_list,
 				relation_table,
+				is_system: true,
 			});
 			return reply.code(200).send({
 				success: true,
-				message: "Field created successfully",
+				message: "Field created successfullys",
 			});
 		} catch (err) {
 			console.log(err);
@@ -65,7 +67,7 @@ export async function field(req: any, reply: FastifyReply) {
 				},
 				{
 					access_type,
-					field_name,
+					field_alias: field_name,
 					unique_key,
 					field_type,
 					option_list,
