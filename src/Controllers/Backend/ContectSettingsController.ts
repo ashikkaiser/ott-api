@@ -191,6 +191,7 @@ async function LevelStructureUpdate(req: any, reply: FastifyReply) {
 									uuid: item.uuid || uuid,
 								};
 							}),
+					uuid: uuid(),
 				},
 			}
 		);

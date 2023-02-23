@@ -6,14 +6,7 @@ export async function field(req: any, reply: FastifyReply) {
 	if (req.method === "GET") {
 		try {
 			const fields = await Field.find({
-				or: [
-					{
-						is_system: true,
-					},
-					{
-						uuid: user.id,
-					},
-				],
+				uuid: user.id,
 			});
 
 			return reply.code(200).send({

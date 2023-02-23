@@ -26,6 +26,7 @@ export class ContentSettingModel {
 			level_structure_detail: LevelStructureDetail[];
 			is_predefined: boolean | false;
 			is_deleted: boolean | false;
+			uuid?: string;
 		}
 	];
 

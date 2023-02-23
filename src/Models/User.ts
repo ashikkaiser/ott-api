@@ -158,6 +158,7 @@ export class UserModel {
 						level_uuid: uuid(),
 					})
 				),
+				uuid: uuid(),
 			})),
 		});
 
