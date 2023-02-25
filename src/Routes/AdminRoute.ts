@@ -14,7 +14,7 @@ import {
 } from "../Controllers/Backend/ContectSettingsController";
 import { field } from "../Controllers/Backend/FieldController";
 import { library, saveAsset } from "../Controllers/Backend/LibraryController";
-import { cast } from "../Controllers/Backend/PeopleController";
+import { cast, castType } from "../Controllers/Backend/PeopleController";
 import { AdminAuthMiddleware } from "../Middlewares/AuthMiddleware";
 
 //schemas
@@ -43,9 +43,13 @@ import {
 	updateFieldSchema,
 } from "../Schemas/FieldSchema";
 import {
+	createCastTypeSchema,
 	createPeopleSchema,
+	deleteCastTypeSchema,
 	deletePeopleSchema,
+	getCastsTypeSchema,
 	getPepoleSchema,
+	updateCastTypeSchema,
 	updatePeopleSchema,
 } from "../Schemas/PeopleSchema";
 
@@ -174,24 +178,18 @@ export async function AdminPrivateRoutes(
 			description: "Get library",
 		},
 	});
-	//People
 
-	app.get("content/cast", {
-		...getPepoleSchema,
-		handler: cast,
-	});
-	app.post("content/cast", {
-		...createPeopleSchema,
-		handler: cast,
-	});
-	app.put("content/cast", {
-		...updatePeopleSchema,
-		handler: cast,
-	});
-	app.delete("content/cast", {
-		...deletePeopleSchema,
-		handler: cast,
-	});
+	//Content Settings
+	app.get("content/cast", { ...getPepoleSchema, handler: cast });
+	app.post("content/cast", { ...createPeopleSchema, handler: cast });
+	app.put("content/cast", { ...updatePeopleSchema, handler: cast });
+	app.delete("content/cast", { ...deletePeopleSchema, handler: cast });
+
+	//cast type Routes
+	app.get("cast/type", { ...getCastsTypeSchema, handler: castType });
+	app.post("cast/type", { ...createCastTypeSchema, handler: castType });
+	app.put("cast/type", { ...updateCastTypeSchema, handler: castType });
+	app.delete("cast/type/:id", { ...deleteCastTypeSchema, handler: castType });
 
 	done();
 }

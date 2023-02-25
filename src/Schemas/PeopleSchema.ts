@@ -49,3 +49,46 @@ export const deletePeopleSchema = {
 		},
 	},
 };
+
+export const getCastsTypeSchema = {
+	schema: {
+		tags: ["Cast"],
+		summary: "Get people type",
+		description: "Get people type",
+	},
+};
+
+export const createCastTypeSchema = {
+	schema: {
+		body: {
+			type: "object",
+			properties: {
+				type_name: { type: "string" },
+			},
+			required: ["type_name"],
+		},
+		tags: ["Cast"],
+	},
+};
+
+export const updateCastTypeSchema = {
+	schema: {
+		body: {
+			type: "object",
+			properties: {
+				type_name: { type: "string" },
+				id: { type: "string" },
+			},
+			required: ["type_name", "id"],
+		},
+		tags: ["Cast"],
+	},
+};
+
+export const deleteCastTypeSchema = {
+	schema: {
+		tags: ["Cast"],
+		summary: "Delete people type",
+		description: "Delete people type",
+	},
+};
